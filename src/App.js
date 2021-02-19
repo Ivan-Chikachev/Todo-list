@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import './index.scss';
+import Page from "./components/Page";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
+import About from "./components/About";
+import Navbar from "./components/Navbar";
+import {AlertContext} from "./context/alert/alertContext";
+import {AlertState} from "./context/alert/AlertState";
+import {FirebaseState} from "./context/firebase/FirebaseState";
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    return (
+        <FirebaseState>
+        <AlertState>
+            <BrowserRouter>
+                <Navbar/>
+                <div className="container pt-4">
+
+                    <Switch>
+                        <Route path={'/page'} exact component={Page}/>
+                        <Route path={'/about'} component={About}/>
+                    </Switch>
+                </div>
+            </BrowserRouter>
+        </AlertState>
+        </FirebaseState>
+    );
 }
 
 export default App;
